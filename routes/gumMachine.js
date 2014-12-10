@@ -35,6 +35,20 @@ db.open(function(err, db) {
 });
 
 exports.addMachine = function(req, res){
+/*	var machine = req.body;
+	db.collection('NodeGumballMachine', function(err, data){
+		data.insert(machine, {safe: true}, function(err, result){
+			if (err) {
+	            res.send({'error':'Error occurred'});
+			}
+			else{*/
+				res.render('addMachine',{result:""});
+		//	}
+	//	});
+	//});
+}
+
+exports.SaveNewMachine = function(req, res){
 	var machine = req.body;
 	db.collection('NodeGumballMachine', function(err, data){
 		data.insert(machine, {safe: true}, function(err, result){
@@ -42,7 +56,7 @@ exports.addMachine = function(req, res){
 	            res.send({'error':'Error occurred'});
 			}
 			else{
-				res.send(result[0]);
+				res.render('SaveNewMachine',{result:result});
 			}
 		});
 	});
