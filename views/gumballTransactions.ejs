@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-
+  
 <head>
   <title>NodeJS & MongoDB Gumball Machine</title>
   <meta name="description" content="website description" />
@@ -15,37 +15,39 @@
   <div id="main">
     <div id="logo" align='center'>
         <h1> Mighty Gumball Machine Shop</h1>
-        
     </div>
     <div align = "center">
-       		<img src="images/gumballm.jpg" alt="gumMachine" width= "280" height= "280"/>
+       		<img src="/images/gumballm.jpg" alt="gumball machine" width= "280" height= "280"/>
         </div>
     
     <div id="site_content">
     	<div align = "center">
-    		<form method="POST" action="/SaveNewMachine">
+    		<form method="POST" action="/gumballTransactions/<%=_id%>">
+    		<input type="hidden" value="<%=state%>" name="state">
+            <input type="hidden" value="<%=ts%>" name="ts">
+            <input type="hidden" value="<%=hash%>" name="hash">
+    		<h2><%=notify%></h2>
     		<table bgcolor = "#ffffff">
-    		
+    			
     			<tr>	
             		<td><label>Serial Number</label>
-            		<td><input type="text" value="" required="required" placeholder="Enter serial number" name="serialNo" id="serialNo">
+            		<td><input type="text" value="<%=result.serialNo%>" required="required" placeholder="Enter serial number" name="serialNo" id="serialNo">
             	</tr>
     			<tr>
             		<td><label>Model Number</label></td>
-            		<td><input type="text" value="" required="required" placeholder="Enter model number" name="modelNo" id="modelNo"></td>
+            		<td><input type="text" value="<%=result.modelNo%>" required="required" placeholder="Enter model number" name="modelNo" id="modelNo"></td>
            		</tr>
-            	
             	<tr>	
             		<td><label>Count</label>
-            		<td><input type="text" value="" required="required" placeholder="Count" name="count" id="count">
+            		<td><input type="text" value="<%=result.count%>" required="required" placeholder="Count" name="count" id="count" readonly>
             	</tr>
             	<tr>
-            		<td><input type="submit" name="submit" id="submit" value="Add" /></td>
-            		<td></td>
+            		<td><input type="submit" name="activity" id="submit" value="Insert Quarter" /></td>
+            		<td><input type="submit" name="activity" id="submit" value="Turn Crank" /></td>
             	</tr>
                </table>
          	</form>
-         		<a class="biz-name" href="/listMachines">Go Back to List Machines</a>
+         	<a class="biz-name" href="/GumballMachinesInventory">Go Back to List Machines</a>
     	</div>
     </div>
     <div id="footer">

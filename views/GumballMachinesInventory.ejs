@@ -22,7 +22,7 @@
         <h1> Mighty Gumball Machine Shop </h1>
     </div>
     <div align = "center">
-       		<form method="POST" action="/addMachine">
+       		<form method="POST" action="/addGumballMachine">
        		<input type="submit" name="submit" id="submit" value="Add Machine" />
        		</form>
     </div>
@@ -62,7 +62,7 @@
                                                 <%=i+1%>
                                                 </td>
                                                 <td>
-                                                <a class="biz-name" href="/getDetails/<%=result[i]._id%>"><%=result[i].serialNo%></a>
+                                                <a class="biz-name" href="/gumballTransactions/<%=result[i]._id%>"><%=result[i].serialNo%></a>
                                                 </td>
                                                 <td>
                                                 <%=result[i].modelNo%>

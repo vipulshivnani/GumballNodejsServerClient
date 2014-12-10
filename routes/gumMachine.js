@@ -34,7 +34,7 @@ db.open(function(err, db) {
     
 });
 
-exports.addMachine = function(req, res){
+exports.addGumballMachine = function(req, res){
 /*	var machine = req.body;
 	db.collection('NodeGumballMachine', function(err, data){
 		data.insert(machine, {safe: true}, function(err, result){
@@ -42,7 +42,7 @@ exports.addMachine = function(req, res){
 	            res.send({'error':'Error occurred'});
 			}
 			else{*/
-				res.render('addMachine',{result:""});
+				res.render('addGumballMachine',{result:""});
 		//	}
 	//	});
 	//});
@@ -62,23 +62,23 @@ exports.SaveNewMachine = function(req, res){
 	});
 }
 
-exports.listMachines = function(req, res){
+exports.GumballMachinesInventory = function(req, res){
 	db.collection('NodeGumballMachine', function(err, collection) {
         collection.find().toArray(function(err, list) {
-        	 res.render('listMachines', {result:list});
+        	 res.render('GumballMachinesInventory', {result:list});
         });
     });
 }
 
 
-exports.getDetails = function(req, res){
+exports.gumballTransactions = function(req, res){
 	var id = req.params.id;
 	db.collection('NodeGumballMachine', function(err, collection){
 		collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, record){
 			var state = 'No Coin';
 			var ts = new Date().getTime();
 			var hash= create_hash(state, ts);
-			res.render('getDetails',{result: record, _id:id, state: state, hash: hash, ts: ts, notify: 'Please insert coin'});
+			res.render('gumballTransactions',{result: record, _id:id, state: state, hash: hash, ts: ts, notify: 'Please insert coin'});
 		});
 	});
 }
@@ -104,21 +104,21 @@ exports.updateMachine = function(req, res){
 	console.log(data);
 	
 	if(diff>120){
-		res.render('getDetails', {result: data, _id:id, state:state, ts:now,hash: hash_second, notify: 'Invalid Session'});
+		res.render('gumballTransactions', {result: data, _id:id, state:state, ts:now,hash: hash_second, notify: 'Invalid Session'});
 	}
 	if(activity == "Insert Quarter"){
 		if(state == "No Coin"){
 			var newState = "Has Coin";
 			var newHash = create_hash(state, now);
-			res.render('getDetails', {result: data, _id:id, state:newState, ts:now, hash: newHash, notify:'Coin Inserted'});
+			res.render('gumballTransactions', {result: data, _id:id, state:newState, ts:now, hash: newHash, notify:'Coin Inserted'});
 		}
 		else{
-			res.render('getDetails', {result: data, _id:id, state:state, ts:now, hash: create_hash(state,now), notify:'Coin already Inserted'});
+			res.render('gumballTransactions', {result: data, _id:id, state:state, ts:now, hash: create_hash(state,now), notify:'Coin already Inserted'});
 		}
 	}
 	else{
 		if(state == "No Coin"){
-			res.render('getDetails', {result: data, _id:id, state:state,ts:now, hash: create_hash(state, now), notify:'Please Insert Coin'});
+			res.render('gumballTransactions', {result: data, _id:id, state:state,ts:now, hash: create_hash(state, now), notify:'Please Insert Coin'});
 		}
 		else if(state == "Has Coin"){
 				db.collection('NodeGumballMachine', function(err, collection){
@@ -140,13 +140,13 @@ exports.updateMachine = function(req, res){
 			            } 
 						else {
 			                console.log('' + result + ' document(s) updated');
-			                res.render('getDetails', {result:data1, _id:id, ts:now, hash: create_hash('No Coin', now), state:'No Coin', notify:'Enjoy your gumball'});
+			                res.render('gumballTransactions', {result:data1, _id:id, ts:now, hash: create_hash('No Coin', now), state:'No Coin', notify:'Enjoy your gumball'});
 			            }
 					});
 				});
 			}
 			else{
-				res.render('getDetails', {result: data, ts: now, hash: create_hash(state, now), state: state, notify:'No Inventory'});
+				res.render('gumballTransactions', {result: data, ts: now, hash: create_hash(state, now), state: state, notify:'No Inventory'});
 			}
 		}
 	}
